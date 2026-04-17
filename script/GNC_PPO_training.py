@@ -22,8 +22,8 @@ def load_args():
     parser.add_argument('--log-interval', type=int, default=1)
     parser.add_argument('--ppo-batch-size', type=int, default=128)
 
-    parser.add_argument('--tensorboard-log', type=str, default='runs/ppo_gnc_tensorboard/')
-    parser.add_argument('--model-save-path', type=str, default='runs/ppo_gnc_actor.zip')
+    parser.add_argument('--tensorboard-log', type=str, default='logs/ppo_gnc_tensorboard/')
+    parser.add_argument('--model-save-path', type=str, default='model/ppo_gnc_actor.zip')
     return parser.parse_args()
 
 

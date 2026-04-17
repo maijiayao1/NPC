@@ -1,8 +1,3 @@
-import time
-import numpy as np
-from scipy.spatial.transform import Rotation
-from scipy.stats import entropy
-
 from Environment.point_cloud_registration_utils import *
 
 seed = 48

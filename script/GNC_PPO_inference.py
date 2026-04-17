@@ -5,10 +5,10 @@ import pandas as pd
 from Environment.GNC_Env import *
 
 
-def use_model(args, outlier_ratio, pt_dir=None):
+def use_model(args):
     model = PPO.load(args.model_save_path)
 
-    test_env = GNC_Env(outlier_ratio=outlier_ratio, pt_dir=pt_dir)
+    test_env = GNC_Env(outlier_ratio=args.outlier_ratio, pt_dir=args.pt_dir)
     assert isinstance(test_env.action_space, gym.spaces.Box), "only continuous action space is supported"
 
     print("Warming up the model...")
@@ -66,10 +66,11 @@ def use_model(args, outlier_ratio, pt_dir=None):
 def load_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--env-id', type=str, default='Solver_GNC_Env')
-    parser.add_argument('--model-save-path', type=str, default='runs/ppo_gnc_actor.zip')
+    parser.add_argument('--outlier-ratio', type=float, default=0.95)
+    parser.add_argument('--model-save-path', type=str, default='model/ppo_gnc_actor.zip')
+    parser.add_argument('--pt-dir', type=str, default='/home/mai/python_ws/RLGNC/dataset/PointCloud_dataset/EPFL_RG-PCD/bunny.ply')
     return parser.parse_args()
 
 if __name__ == '__main__':
     args = load_args()
-    pt_dir = "/home/mai/python_ws/RLGNC/dataset/PointCloud_dataset/EPFL_RG-PCD/bunny.ply"
-    use_model(args, outlier_ratio=0.95, pt_dir=pt_dir)
+    use_model(args)
