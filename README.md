@@ -1,77 +1,187 @@
-# Neural Predictor-Corrector (NPC)
+<p align="center">
+  <h1 align="center">
+    <ins>Neural Predictor-Corrector (NPC)</ins> 🔄<br>
+    Solving Homotopy Problems with Reinforcement Learning
+  </h1>
+  <h3 align="center">ICLR 2026</h3>
+  <p align="center">
+    <a href="https://github.com/maijiayao1">Jiayao Mai</a><sup>*</sup>&nbsp;·&nbsp;
+    <a href="https://bangyan101.github.io/">Bangyan Liao</a><sup>*</sup>&nbsp;·&nbsp;
+    <a href="https://ericzzj1989.github.io/">Zhenjun Zhao</a><sup>†</sup>&nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/zengyingping/">Yingping Zeng</a>&nbsp;·&nbsp;
+    <a href="https://sites.google.com/view/haoangli/homepage">Haoang Li</a>&nbsp;·&nbsp;
+    <a href="https://scholar.google.es/citations?user=j_sMzokAAAAJ&hl=en">Javier Civera</a>&nbsp;·&nbsp;
+    <a href="https://tailin.org/">Tailin Wu</a>&nbsp;·&nbsp;
+    <a href="https://sites.google.com/view/zhouyi-joey/home">Yi Zhou</a><sup>✉</sup>&nbsp;·&nbsp;
+    <a href="https://ethliup.github.io/">Peidong Liu</a><sup>✉</sup>
+  </p>
+  <p align="center">
+    <sup>*</sup>Equal contribution &nbsp;·&nbsp; <sup>†</sup>Project lead &nbsp;·&nbsp; <sup>✉</sup>Corresponding authors
+  </p>
+  <div align="center">
 
-[![Paper](https://img.shields.io/badge/Paper-ArXiv-red)](https://arxiv.org/abs/2602.03086)
-[![Python](https://img.shields.io/badge/Python-3.8+-yellow)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+  [![Paper](https://img.shields.io/badge/Paper-arXiv%3A2602.03086-b31b1b.svg)](https://arxiv.org/abs/2602.03086)
+  [![Video](https://img.shields.io/badge/Video-YouTube-red?logo=youtube)](https://youtu.be/7rjERHpgEYw)
+  [![Slides](https://img.shields.io/badge/Slides-ICLR%202026-blue?logo=adobeacrobatreader)](files/npc_slides.pdf)
+  [![Poster](https://img.shields.io/badge/Poster-ICLR%202026-green?logo=adobeacrobatreader)](files/npc_poster.pdf)
+  [![Python](https://img.shields.io/badge/Python-3.8+-yellow)](https://www.python.org/)
+  [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Introduction
+  </div>
+</p>
 
-This is the official repository for the paper [Neural Predictor-Corrector: A General Learning Framework for Homotopy Methods](https://arxiv.org/abs/2602.03086).
+Official implementation of the ICLR 2026 paper:
+**"Neural Predictor-Corrector: Solving Homotopy Problems with Reinforcement Learning"**
 
-Homotopy methods provide a powerful paradigm for solving challenging problems across robust optimization, global optimization, polynomial root-finding, and sampling. While practical solvers typically follow a **predictor-corrector (PC)** structure, they rely on hand-crafted heuristics for step sizes selection and termination criteria, which are often suboptimal and task-specific.
-
-
-This repository implements **Neural Predictor-Corrector (NPC)** , a unified neural solver that **replaces hand-crafted heuristics with automatically learned policies** using reinforcement learning. Our method:
-
-- Unifies diverse homotopy problems under a single framework  
-- Learns efficient predictor-corrector policies via RL  
-- Outperforms baselines in efficiency & stability  
-- Generalizes to unseen instances without retraining
-
-Development credit for this repository goes primarily to [@maijiayao1](https://github.com/maijiayao1) and [@bangyan101](https://github.com/bangyan101).
-
-### **Video**
-
-[![IMAGE ALT TEXT HERE](cover_of_video.jpg)](https://www.youtube.com/watch?v=7rjERHpgEYw) &nbsp;&nbsp;
-
+<p align="center">
+  <a href="https://arxiv.org/abs/2602.03086">
+    <img src="assets/npc_teaser.png" alt="NPC Teaser" width="30%">
+  </a>
+  <br>
+  <em>NPC reveals that robust optimization, global optimization, polynomial root-finding, and sampling all share a common predictor-corrector structure, and learns efficient solver policies via reinforcement learning.</em>
+</p>
 
 ---
 
-## Installation
+## 🔍 Overview
 
-First, clone the repository and install dependencies:
+Homotopy methods are ubiquitous across scientific computing — from **Graduated Non-Convexity (GNC)** in robust optimization to **annealed Langevin dynamics** in sampling. Despite their apparent diversity, these methods all follow a common **predictor-corrector (PC)** structure. Yet practical solvers rely on hand-crafted heuristics for step size selection and termination criteria, which are often suboptimal and require tedious per-task tuning.
+
+**NPC (Neural Predictor-Corrector)** is the first unified framework that:
+1. Reveals the shared predictor-corrector structure underlying these diverse homotopy problems
+2. Replaces hand-crafted heuristics with **learned policies trained via reinforcement learning (PPO)**
+
+At each homotopy level, the NPC agent:
+- **Observes** the current homotopy level, corrector convergence statistics, and convergence velocity
+- **Decides** the predictor step size and corrector tolerance
+- **Learns** to optimally balance accuracy and efficiency — trained once on a problem class, then deployed on any new instance
+
+## ✨ Highlights
+
+- 🔗 **First unified framework** for homotopy methods spanning robust optimization, global optimization, polynomial root-finding, and sampling
+- 🤖 **RL-based policy learning** via PPO replaces all hand-crafted predictor-corrector heuristics
+- ✅ **No per-instance tuning** — amortized training enables fast inference on unseen instances
+- 🚀 **State-of-the-art efficiency** with superior stability across all benchmarks
+
+## 🎬 Video
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=7rjERHpgEYw">
+    <img src="cover_of_video.jpg" alt="NPC Demo Video" width="50%">
+  </a>
+</p>
+
+---
+
+## 📦 Installation
+
+Clone the repository and install dependencies:
 
 ```bash
-# clone project
 git clone git@github.com:maijiayao1/NPC.git
 cd NPC
-
-# install requirements
 pip install -r requirements.txt
 ```
 
 ---
 
-## Usage
+## 🚀 Usage
 
-To train a new model:
+### Training
 
+Train a new NPC model on a target problem class:
+
+```bash
+python script/GNC_PPO_training.py --model-save-path="model/your_model_name"
 ```
-python script/GNC_PPO_training.py  --model-save-path="model/your_model_name"
-```
 
-Launch TensorBoard to visualize training logs:
+Monitor training with TensorBoard:
 
-```
+```bash
 tensorboard --logdir=./logs/ppo_gnc_tensorboard
 ```
 
 Then open http://localhost:6006 in your browser.
 
+### Evaluation
 
 Evaluate a trained model:
 
-```
+```bash
 python script/GNC_PPO_inference.py --model-save-path="model/your_model_name"
 ```
 
 ---
 
-## Citations
+## 📊 Results
 
-If this codebase is useful towards other research efforts please consider citing us.
+NPC achieves consistent speedups across all four benchmark tasks. Below we highlight two representative results; see the [paper](https://arxiv.org/abs/2602.03086) for the full evaluation.
+
+### GNC Point Cloud Registration
+
+Rotation error (log E_R) and translation error (log E_t) are reported on a log₁₀ scale. NPC matches classical accuracy while reducing iterations and runtime by **4–10×**.
+
+| Sequence | Method | log(E_R) ↓ | log(E_t) ↓ | Iter | Time (s) |
+|:--------:|:-------|:----------:|:----------:|-----:|---------:|
+| bunny    | Classic GNC | -0.85 | -2.76 | 783 | 161.00 |
+|          | IRLS GNC    | -0.85 | -2.75 | 309 |  61.59 |
+|          | **Ours + GNC** | -0.85 | -2.71 | **169** | **19.15** |
+| cube     | Classic GNC | -1.12 | -2.89 | 486 |  89.34 |
+|          | IRLS GNC    | -1.10 | -2.90 | 141 |  26.13 |
+|          | **Ours + GNC** | -1.11 | -2.86 | **86** | **7.86** |
+| dragon   | Classic GNC | -0.80 | -2.82 | 859 | 177.11 |
+|          | IRLS GNC    | -0.80 | -2.82 | 486 |  95.93 |
+|          | **Ours + GNC** | -0.80 | -2.80 | **201** | **26.42** |
+
+> The NPC agent is trained on the Aquarius sequence and evaluated on unseen sequences (zero-shot generalization).
+
+### HC Polynomial Root-Finding
+
+NPC maintains 100% tracking success rate while reducing iterations by **5–6×** and runtime by **3×**.
+
+| Problem | Method | Succ. | Iter | Time (s) |
+|:-------:|:-------|:-----:|-----:|---------:|
+| katsura10 | Classic HC | 100% | 39 | 2.22 |
+|           | **Ours + HC** | **100%** | **7** | **0.65** |
+| cyclic7   | Classic HC | 100% | 41 | 1.96 |
+|           | **Ours + HC** | **100%** | **8** | **0.64** |
+| UPnP      | Classic HC | 100% | 53 | 8.25 |
+|           | **Ours + HC** | **100%** | **29** | **3.86** |
+
+> The NPC agent is trained on polynomial systems from the 4-view triangulation task and evaluated on unseen problem classes (cross-task generalization).
+
+### Efficiency vs. Precision Trade-off
+
+<p align="center">
+  <img src="assets/tradeoff.png" alt="Efficiency vs. Precision Trade-off" width="70%">
+  <br>
+  <em>NPC consistently achieves a better trade-off between efficiency (fewer iterations) and precision across all four task domains.</em>
+</p>
+
+---
+
+## 🗃️ Code Structure
 
 ```
+NPC/
+├── assets/                     # Figures and teaser image
+├── files/                      # Slides and poster (PDF)
+├── script/
+│   ├── GNC_PPO_training.py     # Training script (GNC / point cloud registration)
+│   └── GNC_PPO_inference.py    # Evaluation script
+├── model/                      # Saved model checkpoints
+├── cover_of_video.jpg          # Video thumbnail
+├── LICENSE.txt
+└── requirements.txt
+```
+
+---
+
+## 📝 Citation
+
+If you find this work useful, please consider citing:
+
+```bibtex
 @article{mai2026neural,
   title={Neural Predictor-Corrector: Solving Homotopy Problems with Reinforcement Learning},
   author={Mai, Jiayao and Liao, Bangyan and Zhao, Zhenjun and Zeng, Yingping and Li, Haoang and Civera, Javier and Wu, Tailin and Zhou, Yi and Liu, Peidong},
@@ -81,6 +191,11 @@ If this codebase is useful towards other research efforts please consider citing
 ```
 
 ---
-## Licences
 
-This repo is licensed under the [MIT License](https://opensource.org/license/mit/).
+## 📬 Contact
+
+For questions or feedback, feel free to reach out:
+
+- [Jiayao Mai](https://github.com/maijiayao1)
+- [Bangyan Liao](https://bangyan101.github.io/)
+- [Zhenjun Zhao](https://ericzzj1989.github.io/)
