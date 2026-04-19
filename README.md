@@ -116,7 +116,7 @@ python script/GNC_PPO_inference.py --model-save-path="model/your_model_name"
 
 ## 📊 Results
 
-NPC achieves consistent speedups across all four benchmark tasks. Below we highlight two representative results. See the [paper](https://arxiv.org/abs/2602.03086) for the full evaluation.
+NPC achieves consistent speedups across all benchmark tasks. See the [paper](https://arxiv.org/abs/2602.03086) for the full evaluation.
 
 ### Point Cloud Registration via Graduated Non-Convexity (GNC)
 
@@ -135,21 +135,6 @@ Rotation error (log E_R) and translation error (log E_t) are reported on a log�
 |          | **NPC + GNC** | -0.80 | -2.80 | **201** | **26.42** |
 
 > NPC is trained on the Aquarius sequence and evaluated on unseen sequences (zero-shot generalization).
-
-### Polynomial Root-Finding via Homotopy Continuation (HC)
-
-NPC maintains 100% tracking success rate while reducing iterations by **5–6×** and runtime by **3×**.
-
-| Problem | Method | Succ. | Iter | Time (s) |
-|:-------:|:-------|:-----:|-----:|---------:|
-| katsura10 | Classic HC | 100% | 39 | 2.22 |
-|           | **NPC + HC** | **100%** | **7** | **0.65** |
-| cyclic7   | Classic HC | 100% | 41 | 1.96 |
-|           | **NPC + HC** | **100%** | **8** | **0.64** |
-| UPnP      | Classic HC | 100% | 53 | 8.25 |
-|           | **NPC + HC** | **100%** | **29** | **3.86** |
-
-> NPC is trained on polynomial systems from the 4-view triangulation task and evaluated on unseen problem classes (cross-task generalization).
 
 ### Efficiency vs. Precision Trade-off
 
